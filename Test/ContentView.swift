@@ -22,7 +22,6 @@ struct ContentView: View {
     @State var sliderValue: Double = 1
     @State var speed: Double = 1
     @State var isShowing: Bool = true
-    var showSpeed:  
     
     var timer = Timer.publish(every: TimeInterval(showSpeed), on: .main, in: .common)
     
