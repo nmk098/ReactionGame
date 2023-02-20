@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-
-
 struct ContentView: View {
     
-   @State var buttonText: String = "Start"
+ 
+    @State var speed: Double = 0.5
+    @State var buttonText: String = "Start"
     
     @State var strongLevel: String = "LEVEL"
     @State var levelImage: String = ""
@@ -20,10 +20,9 @@ struct ContentView: View {
     @State var redTapCount: Int = 0
     
     @State var sliderValue: Double = 1
-    @State var speed: Double = 1
     @State var isShowing: Bool = true
     
-    var timer = Timer.publish(every: TimeInterval(showSpeed), on: .main, in: .common)
+    var timer = Timer.TimerPublisher(interval: 1, runLoop: .main, mode: .common)
     
     @State var avaString: String = ""
     
@@ -32,12 +31,14 @@ struct ContentView: View {
     
     @State var randomX = CGFloat.random(in: 100...300)
     @State var randomY = CGFloat.random(in: 100...900)
-    @State private var radius: CGFloat = 50
+    
+    @State private var radius: CGFloat = 75
     @State private var RandomColor: [Color] = [
         .red, .blue, .green, .yellow
     ]
     @State var circleVisibility: Double = 0
     @State var sliderVisibility: Double = 1
+    @State var fieldOpacity: Double = 0
     
     var body: some View {
         ZStack{
@@ -45,9 +46,9 @@ struct ContentView: View {
                 gradient: Gradient(colors: [
                     Color.white, Color("BackGround")
                 ]),
-                         center: .center,
-                         startRadius: 0,
-                         endRadius: 500
+                center: .center,
+                startRadius: 0,
+                endRadius: 400
             )
             .ignoresSafeArea()
             .onTapGesture {
@@ -60,10 +61,17 @@ struct ContentView: View {
                           y: randomY)
                 .onTapGesture {
                     randomX = CGFloat.random(in: 80...350)
-                        randomY = CGFloat.random(in: 100...800)
+                    randomY = CGFloat.random(in: 100...800)
                     greenTapCount += 1
-                                    }
-    
+                }
+                .onAppear {
+                    Timer.scheduledTimer(withTimeInterval: speed, repeats: true) { timer in
+                        withAnimation {
+                            randomX = CGFloat.random(in: 80...350)
+                            randomY = CGFloat.random(in: 100...800)
+                        }
+                    }
+                }
             VStack{
                 
                 HStack() {
@@ -91,54 +99,48 @@ struct ContentView: View {
                             .fontWeight(.medium)
                             .tint(Color("redTap"))
                             .frame(width: 50,
-                            height: 40)
+                                   height: 40)
                             .background(Color("redTap"))
                             .clipShape(RoundedRectangle(cornerRadius: 5))
                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 1))
-                            .opacity(circleVisibility)
+                            .opacity(fieldOpacity)
                         
-                    Text("\(greenTapCount)")
+                        Text("\(greenTapCount)")
                             .tint(Color("greenTap"))
-                        .font(.title)
-                        .fontWeight(.medium)
-                        .frame(width: 50,
-                        height: 40)
-                        .background(Color("greenTap"))
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 1))
-                        .opacity(circleVisibility)
-                }
+                            .font(.title)
+                            .fontWeight(.medium)
+                            .frame(width: 50,
+                                   height: 40)
+                            .background(Color("greenTap"))
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 1))
+                            .opacity(fieldOpacity)
+                    }
                     .padding()
                 }
-                .padding(.top)
+                .padding(.top, 40)
                 Spacer()
                 ModalView(
-                          isShowing: $isShowing,
-                          strongLevel: $strongLevel,
-                          sliderValue: $sliderValue,
-                          levelImage: $levelImage,
-                          speed: $speed,
-                          buttonText: $buttonText,
-                          circleVisibility: $circleVisibility,
-                          sliderVisibility: $sliderVisibility,
-                          randomX: $randomX,
-                          randomY: $randomY
+                    isShowing: $isShowing,
+                    strongLevel: $strongLevel,
+                    sliderValue: $sliderValue,
+                    levelImage: $levelImage,
+                    speed: $speed, buttonText: $buttonText,
+                    circleVisibility: $circleVisibility,
+                    sliderVisibility: $sliderVisibility,
+                    randomX: $randomX,
+                    randomY: $randomY,
+                    fieldOpacity: $fieldOpacity
                 )
             }
             .ignoresSafeArea()
             Spacer()
         }
     }
-           
+    
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
             ContentView()
         }
     }
 }
-
-extension UIScreen {
-  static let screenHeight = UIScreen.main.bounds.size.height
-   static let screenWidth = UIScreen.main.bounds.size.width
-}
-

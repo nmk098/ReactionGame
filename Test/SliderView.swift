@@ -11,9 +11,8 @@ struct SliderView: View {
     @Binding var strongLevel: String
     @Binding var sliderValue: Double
     @Binding var levelImage: String
-    @Binding var radius: CGFloat
     
-    @Binding var speed: TimeInterval
+    @Binding var speed: Double
     
     var body: some View {
         Slider(
@@ -25,27 +24,27 @@ struct SliderView: View {
                     strongLevel = "BABY"
                     levelImage = "figure.and.child.holdinghands"
                     speed = 2
-                    radius = 200
+                    print(speed)
                 } else if  sliderValue > 2 && sliderValue <= 4 {
                     strongLevel = "YOUNG MAN"
                     levelImage = "person.fill"
                     speed = 1.5
-                    radius = 150
+                    print(speed)
                 }else if  sliderValue >= 5 && sliderValue <= 6 {
                     strongLevel = "STRONG!"
                     levelImage = "figure.strengthtraining.traditional"
-                    speed = 1.0
-                    radius = 100
+                    speed = 1.3
+                    print(speed)
                 }else if  sliderValue >= 7 && sliderValue <= 8 {
                     strongLevel = "FLASH"
                     levelImage = "bolt.fill"
-                    speed = 0.7
-                    radius = 75
+                    speed = 1.0
+                    print(speed)
                 }else if  sliderValue >= 9 && sliderValue <= 10 {
                     strongLevel = "WHO ARE YOU?!"
                     levelImage = "questionmark.app"
-                    speed = 0.4
-                    radius = 50
+                    speed = 0.8
+                    print(speed)
                 }
             }
         )
@@ -56,6 +55,6 @@ struct SliderView: View {
 
 struct SliderView_Previews: PreviewProvider {
     static var previews: some View {
-        SliderView(strongLevel: .constant("norm"), sliderValue: .constant(1), levelImage: .constant("heart"), radius: .constant(50), speed: .constant(1))
+        SliderView(strongLevel: .constant("norm"), sliderValue: .constant(1), levelImage: .constant("heart"), speed: .constant(1))
     }
 }

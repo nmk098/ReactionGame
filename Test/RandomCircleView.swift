@@ -11,7 +11,6 @@ struct RandomCircleView: View {
     
     @Binding var radius: CGFloat
     @Binding var RandomColor: [Color]
-   // @Binding var circleVisibility: Visibility
     
     var body: some View {
         Circle()
@@ -22,8 +21,8 @@ struct RandomCircleView: View {
     }
 }
 
-//struct RandomCircleView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RandomCircleView(r)
-//    }
-//}
+struct RandomCircleView_Previews: PreviewProvider {
+    static var previews: some View {
+        RandomCircleView(radius: .constant(50), RandomColor: .constant([.white]))
+    }
+}

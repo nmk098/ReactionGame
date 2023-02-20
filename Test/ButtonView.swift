@@ -15,6 +15,8 @@ struct ButtonView: View {
     @Binding var randomX: CGFloat
     @Binding var randomY: CGFloat
     @Binding var isShowing: Bool
+    @Binding var fieldOpacity: Double
+    
     var body: some View {
         Button(action: { startGame() }) {
             Text(buttonText)
@@ -34,6 +36,8 @@ struct ButtonView: View {
             sliderVisibility = 0
             buttonText = "Stop"
             isShowing.toggle()
+            fieldOpacity = 1
+        
         
         randomX = CGFloat.random(in: 50...350)
         randomY = CGFloat.random(in: 50...350)
@@ -42,6 +46,6 @@ struct ButtonView: View {
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView(buttonText: .constant("Start"), circleVisibility: .constant(1), sliderVisibility: .constant(1), randomX: .constant(200), randomY: .constant(234), isShowing: .constant(true))
+        ButtonView(buttonText: .constant("Start"), circleVisibility: .constant(1), sliderVisibility: .constant(1), randomX: .constant(200), randomY: .constant(234), isShowing: .constant(true), fieldOpacity: .constant(1))
     }
 }
