@@ -17,38 +17,13 @@ struct SliderView: View {
     var body: some View {
         Slider(
             value: $sliderValue,
-            in: 1...10,
+            in: 0...5,
+            step: 1,
             onEditingChanged: { _ in
-                speed = sliderValue
-                if sliderValue <= 2 {
-                    strongLevel = "BABY"
-                    levelImage = "figure.and.child.holdinghands"
-                    speed = 2
-                    print(speed)
-                } else if  sliderValue > 2 && sliderValue <= 4 {
-                    strongLevel = "YOUNG MAN"
-                    levelImage = "person.fill"
-                    speed = 1.5
-                    print(speed)
-                }else if  sliderValue >= 5 && sliderValue <= 6 {
-                    strongLevel = "STRONG!"
-                    levelImage = "figure.strengthtraining.traditional"
-                    speed = 1.3
-                    print(speed)
-                }else if  sliderValue >= 7 && sliderValue <= 8 {
-                    strongLevel = "FLASH"
-                    levelImage = "bolt.fill"
-                    speed = 1.0
-                    print(speed)
-                }else if  sliderValue >= 9 && sliderValue <= 10 {
-                    strongLevel = "WHO ARE YOU?!"
-                    levelImage = "questionmark.app"
-                    speed = 0.8
-                    print(speed)
-                }
-            }
-        )
-                .accentColor(.blue)
+                setSpeed()
+            })
+        
+        .accentColor(.blue)
         .padding()
     }
 }
@@ -56,5 +31,26 @@ struct SliderView: View {
 struct SliderView_Previews: PreviewProvider {
     static var previews: some View {
         SliderView(strongLevel: .constant("norm"), sliderValue: .constant(1), levelImage: .constant("heart"), speed: .constant(1))
+    }
+}
+
+extension SliderView {
+    func setSpeed() {
+        if sliderValue == 1 {
+            strongLevel = "BABY"
+            levelImage = "figure.and.child.holdinghands"
+        } else if  sliderValue == 2 {
+            strongLevel = "YOUNG MAN"
+            levelImage = "person.fill"
+        }else if  sliderValue == 3 {
+            strongLevel = "STRONG!"
+            levelImage = "figure.strengthtraining.traditional"
+        }else if  sliderValue == 4 {
+            strongLevel = "FLASH"
+            levelImage = "bolt.fill"
+        }else if  sliderValue == 5 {
+            strongLevel = "WHO ARE YOU?!"
+            levelImage = "questionmark.app"
+        }
     }
 }

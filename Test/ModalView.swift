@@ -65,7 +65,9 @@ struct ModalView: View {
                         randomX: $randomX,
                         randomY: $randomY,
                         isShowing: $isShowing,
-                        fieldOpacity: $fieldOpacity
+                        fieldOpacity: $fieldOpacity,
+                        sliderValue: $sliderValue,
+                        speed: $speed
                     )
                 }
             }
@@ -80,7 +82,7 @@ struct ModalView: View {
             )
             .ignoresSafeArea()
             .transition(.move(edge: .bottom))
-            .animation(.easeInOut, value: 1)
+            .animation(.easeInOut(duration: 0.3))
         }
         
         

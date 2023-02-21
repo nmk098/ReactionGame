@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
  
-    @State var speed: Double = 0.5
+    @State var speed: Double = 2
     @State var buttonText: String = "Start"
     
     @State var strongLevel: String = "LEVEL"
@@ -57,20 +57,21 @@ struct ContentView: View {
             
             RandomCircleView(radius: $radius, RandomColor: $RandomColor)
                 .opacity(circleVisibility)
+                .animation(.easeInOut(duration: 0.5))
                 .position(x: randomX,
                           y: randomY)
                 .onTapGesture {
                     randomX = CGFloat.random(in: 80...350)
                     randomY = CGFloat.random(in: 100...800)
                     greenTapCount += 1
-                }
-                .onAppear {
-                    Timer.scheduledTimer(withTimeInterval: speed, repeats: true) { timer in
-                        withAnimation {
+                    
+                    Timer.scheduledTimer(withTimeInterval: (2 / sliderValue), repeats: true) { timer in
                             randomX = CGFloat.random(in: 80...350)
-                            randomY = CGFloat.random(in: 100...800)
-                        }
-                    }
+                            randomY = CGFloat.random(in: 100...750)
+                }
+//                .onAppear {
+//
+//                    }
                 }
             VStack{
                 
@@ -86,7 +87,7 @@ struct ContentView: View {
                         Text("stop")
                             .font(.title)
                             .fontWeight(.medium)
-                            .tint(Color(.purple))
+                            .tint(Color(.white))
                             .opacity(circleVisibility)
                         
                     }
